@@ -14,24 +14,58 @@ import FormsList from "./Components/FormsList";
 
 // Helper Functions
 
+let commentIndexes = [5, 10, 14, 17, 22, 26];
+let valueIndexes = [
+  2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 15, 16, 18, 19, 20, 21, 23, 24, 25,
+];
+
 const compileSurveyResponses = (data) => {
-  // TODO: Rewrite this so it's more readable
+  let range = data.range;
+  let rawResponses = data.values;
 
-  // Pull survey responses into array
-  let responses = [];
-  // data.values[0] = headers ( ['label1', 'label2', 'label3'] )
-  // data.values[1-n] = submissions ( ['timestamp', '2', '3', '4', '5', ..., '3'] )
-  for (let i = 1; i < data.values.length; i++) {
-    let responseValues = data.values[i].slice(1);
+  // Compile labels, removing descriptions if present
+  let labels = [];
 
-    // Convert all strings to integers
-    for (let j = 0; j < responseValues.length; j++) {
-      responseValues[j] = parseInt(responseValues[j]);
+  // Compile Labels
+  let headerRow = data.values[0];
+  for (let i = 0; i < valueIndexes.length; i++) {
+    if (headerRow[valueIndexes[i]]) {
+      labels.push(headerRow[valueIndexes[i]].split(" - ")[0].trim());
+    }
+  }
+  rawResponses.splice(0, 1);
+
+  let responses = rawResponses.map((answers, index) => {
+    // Grab Comments
+    let comments = [];
+    for (let i = 0; i < commentIndexes.length; i++) {
+      if (answers[commentIndexes[i]]) {
+        comments.push(answers[commentIndexes[i]]);
+      }
     }
 
-    responses.push(responseValues);
-  }
-  return responses;
+    // Parse Values
+    let values = [];
+    for (let i = 0; i < valueIndexes.length; i++) {
+      if (answers[valueIndexes[i]] === "Have not Observed / Unable to Rate") {
+        values.push(0);
+      } else {
+        values.push(parseInt(answers[valueIndexes[i]].split(" - ")[0]));
+      }
+    }
+
+    return {
+      timestamp: answers[0],
+      submitter: answers[1],
+      values,
+      comments,
+    };
+  });
+
+  return {
+    labels,
+    responses,
+  };
 };
 
 const compileAveragesFromAllResponses = (responses) => {
@@ -39,11 +73,13 @@ const compileAveragesFromAllResponses = (responses) => {
     return [];
   }
 
-  let nonZeroResponseCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let dataSeries = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let nonZeroResponseCounts = [
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ];
+  let dataSeries = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  responses.map((answers, responseIndex) => {
-    answers.map((answer, questionIndex) => {
+  responses.map((response, responseIndex) => {
+    response.values.map((answer, questionIndex) => {
       if (answer > 0) {
         nonZeroResponseCounts[questionIndex]++;
         dataSeries[questionIndex] += answer;
@@ -111,13 +147,13 @@ export default function App() {
   const fetchDataFromSheet = (form) => {
     axios
       .get(
-        `https://sheets.googleapis.com/v4/spreadsheets/${form.id}/values/A:M`
+        `https://sheets.googleapis.com/v4/spreadsheets/${form.id}/values/A:AZ`
       )
       .then((res) => {
-        let responses = compileSurveyResponses(res.data);
+        let structuredFormResponses = compileSurveyResponses(res.data);
         setFormData({
           id: form.id,
-          responses,
+          data: structuredFormResponses,
         });
       })
       .catch((err) => {
@@ -189,10 +225,11 @@ export default function App() {
 
         {user && <LogoutBtn onLogout={logout} />}
 
-        {formData && formData.responses && (
+        {formData && (
           <RadarChart
             form={activeForm}
-            values={compileAveragesFromAllResponses(formData.responses)}
+            labels={formData.data.labels}
+            values={compileAveragesFromAllResponses(formData.data.responses)}
             size='auto'
           />
         )}

@@ -20,20 +20,20 @@ ChartJS.register(
   Legend
 );
 
-const labels = [
-  "Fluency with Data",
-  "Voice of the Customer",
-  "User Experience Design",
-  "Business Outcome Ownership",
-  "Product Vision & Roadmappoing",
-  "Strategic Impact",
-  "Stakeholder Management",
-  "Team Leadership",
-  "Managing Up",
-  "Feature Specification",
-  "Product Delivery",
-  "Quality Assurance",
-];
+// const labels = [
+//   "Fluency with Data",
+//   "Voice of the Customer",
+//   "User Experience Design",
+//   "Business Outcome Ownership",
+//   "Product Vision & Roadmappoing",
+//   "Strategic Impact",
+//   "Stakeholder Management",
+//   "Team Leadership",
+//   "Managing Up",
+//   "Feature Specification",
+//   "Product Delivery",
+//   "Quality Assurance",
+// ];
 
 const options = {
   responsive: true,
@@ -104,7 +104,13 @@ let sizes = {
   auto: "full",
 };
 
-const RadarChart = ({ form, values, minimal = false, size = sizes.auto }) => {
+const RadarChart = ({
+  form,
+  labels,
+  values,
+  minimal = false,
+  size = sizes.auto,
+}) => {
   let data = {
     labels,
     datasets: [
