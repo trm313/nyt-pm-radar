@@ -1,5 +1,5 @@
 /**
- *
+ * PARSING SURVEY RESPONSES
  */
 
 let commentIndexes = [5, 10, 14, 17, 22, 26];
