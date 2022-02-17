@@ -11,6 +11,8 @@ import {
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
 
+import SegmentOption from "./SegmentOption";
+
 ChartJS.register(
   RadialLinearScale,
   PointElement,
@@ -65,7 +67,7 @@ const segmentDatasets = [
     label: "Product Strategy",
     data: [3, 3, 3],
     indexes: [0, 1, 2],
-    backgroundColor: "rgba(0,0,255,.1)", // blue
+    backgroundColor: "rgba(22,160,133,.2)", // Green Sea
     borderColor: "none",
     borderWidth: 0,
   },
@@ -73,7 +75,7 @@ const segmentDatasets = [
     label: "Product Execution",
     data: [0, 0, 0, 3, 3, 3, 3],
     indexes: [3, 4, 5],
-    backgroundColor: "rgba(0,0,0,.1)", // gray
+    backgroundColor: "rgba(46,204,113,.2)", // Emerald
     borderColor: "none",
     borderWidth: 0,
   },
@@ -81,7 +83,7 @@ const segmentDatasets = [
     label: "Leadership",
     data: [0, 0, 0, 0, 0, 0, 0, 3, 3, 3],
     indexes: [6, 7, 8],
-    backgroundColor: "rgba(0,255,0,.1)", // green
+    backgroundColor: "rgba(52,152,219,.2)", // Blue
     borderColor: "none",
     borderWidth: 0,
   },
@@ -89,7 +91,7 @@ const segmentDatasets = [
     label: "Cross Functional",
     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3],
     indexes: [9, 10],
-    backgroundColor: "rgba(233,255,0,.1)", // yellow
+    backgroundColor: "rgba(155,89,182,.2)", // Amethyst
     borderColor: "none",
     borderWidth: 0,
   },
@@ -97,15 +99,15 @@ const segmentDatasets = [
     label: "Technical & Insights",
     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3],
     indexes: [11, 12, 13, 14],
-    backgroundColor: "rgba(255,0,255,.1)", // pink
+    backgroundColor: "rgba(52,73,94,.2)", // Wet Asphalt
     borderColor: "none",
     borderWidth: 0,
   },
   {
-    label: "People Management",
+    label: "People Mgmt",
     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3],
     indexes: [15, 16, 17],
-    backgroundColor: "rgba(255,0,0,.1)", // red
+    backgroundColor: "rgba(243,156,18,.2)", // Orange
     borderColor: "none",
     borderWidth: 0,
   },
@@ -125,34 +127,6 @@ const getSegmentTotals = (values, segment) => {
   };
 };
 
-const SegmentOption = ({ segment, isActive, onSelect, proficiency }) => (
-  <Flex
-    mt='4'
-    py='3'
-    px='2'
-    w='40'
-    cursor='pointer'
-    border='1px'
-    borderColor='gray.200'
-    rounded='lg'
-    justify='space-between'
-    backgroundColor={isActive ? segment.backgroundColor : ""}
-    onClick={() => onSelect(segment)}
-  >
-    <Text fontSize='xs'>{segment.label}</Text>
-    <Text
-      fontSize='xs'
-      px='1'
-      backgroundColor='gray.100'
-      opacity='1'
-      rounded='md'
-      fontWeight='bold'
-    >
-      {proficiency.pct}%
-    </Text>
-  </Flex>
-);
-
 const RadarChart = ({
   form,
   labels,
@@ -162,6 +136,7 @@ const RadarChart = ({
 }) => {
   const [segments, setSegments] = useState([segmentDatasets[0]]);
 
+  // TODO: To retain the chart animations for the segments, instead of removing it from the data array, could simply toggle the values for that segment between 0 and 3
   const selectSegment = (selectedSegment) => {
     let index = segments.findIndex(
       (segment) => segment.label === selectedSegment.label
@@ -183,9 +158,9 @@ const RadarChart = ({
       {
         label: "Proficiencies",
         data: values,
-        backgroundColor: "rgba(255, 99, 132, 0.8)", // pink
-        // backgroundColor: "rgba(9, 40, 141, 0.8)", // blue
-        borderColor: "rgba(255, 99, 132, 1)",
+        // backgroundColor: "rgba(255, 99, 132, 0.8)", // pink
+        backgroundColor: "rgba(142,68,173, 0.8)", // blue
+        borderColor: "rgba(142,68,173, 1)",
         borderWidth: 4,
       },
       ...segments,
@@ -199,11 +174,11 @@ const RadarChart = ({
       mt='12'
       position='relative'
     >
-      <Heading fontSize='lg' fontWeight='bold'>
+      <Heading fontSize='lg' fontWeight='bold' mb='8'>
         {form.name}
       </Heading>
-      <Flex w='full'>
-        <Flex w='40' direction='column' justify='center'>
+      <Flex w='full' direction='column' justify='center' alignItems='center'>
+        <Flex justify='center' wrap='wrap'>
           {segmentDatasets.map((s) => (
             <SegmentOption
               key={`radar-legend-${s.label}`}

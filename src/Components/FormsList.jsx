@@ -15,13 +15,10 @@ const FormsList = ({ forms, activeForm, onSelect }) => {
           cursor='pointer'
           p='4'
           mt='2'
-          border='1px'
           borderColor='gray.200'
-          borderRadius='10'
           borderLeftWidth='8px'
-          borderLeftColor={
-            form.id === activeForm?.id ? "rgba(255, 99, 132, 1)" : "gray.300"
-          }
+          borderLeftColor={form.id === activeForm?.id ? "#8e44ad" : "gray.300"}
+          shadow={form.id === activeForm?.id ? "md" : "sm"}
         >
           <Heading size='md'>{form.name}</Heading>
           <Text fontSize='xs'>{form.id}</Text>

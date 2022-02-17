@@ -13,6 +13,12 @@ import GetStartedContent from "./Components/GetStartedContent";
 import FormsList from "./Components/FormsList";
 
 // Helper Functions
+// import {
+//   compileSurveyResponses,
+//   compileAveragesFromAllResponses,
+// } from "./Utils/functions";
+
+// Wisteria Purple: #8e44ad // rgba(142,68,173)
 
 let commentIndexes = [5, 10, 14, 17, 22, 26];
 let valueIndexes = [
@@ -199,41 +205,50 @@ export default function App() {
     <Flex
       direction='column'
       alignItems='center'
+      w='full'
+      maxW='5xl'
       px='4'
       py='16'
-      maxW='4xl'
       mx='auto'
     >
-      <GetStartedContent />
+      <Flex
+        direction='column'
+        alignItems='center'
+        px='4'
+        py='16'
+        maxW='4xl'
+        mx='auto'
+      >
+        <GetStartedContent />
 
-      <Flex direction='column' w='full' maxW='2xl'>
-        <Heading size='lg' display='flex' alignItems='center' my='4'>
-          {" "}
-          <Image src={formToSheetsBtnImage} /> My Surveys
-        </Heading>
+        <Flex direction='column' w='full' maxW='2xl'>
+          <Heading size='lg' display='flex' alignItems='center' my='4'>
+            {" "}
+            <Image src={formToSheetsBtnImage} /> My Surveys
+          </Heading>
 
-        {!user && <GoogleLoginBtn onLogin={login} />}
+          {!user && <GoogleLoginBtn onLogin={login} />}
 
-        {user && (
-          <FormsList
-            forms={forms}
-            activeForm={activeForm}
-            onSelect={selectForm}
-          />
-        )}
-        {user && <AddSheetForm handleAddSheet={handleAddSheet} />}
+          {user && (
+            <FormsList
+              forms={forms}
+              activeForm={activeForm}
+              onSelect={selectForm}
+            />
+          )}
+          {user && <AddSheetForm handleAddSheet={handleAddSheet} />}
 
-        {user && <LogoutBtn onLogout={logout} />}
-
-        {formData && (
-          <RadarChart
-            form={activeForm}
-            labels={formData.data.labels}
-            values={compileAveragesFromAllResponses(formData.data.responses)}
-            size='auto'
-          />
-        )}
+          {user && <LogoutBtn onLogout={logout} />}
+        </Flex>
       </Flex>
+      {formData && (
+        <RadarChart
+          form={activeForm}
+          labels={formData.data.labels}
+          values={compileAveragesFromAllResponses(formData.data.responses)}
+          size='auto'
+        />
+      )}
     </Flex>
   );
 }
