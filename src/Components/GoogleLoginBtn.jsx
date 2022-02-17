@@ -40,14 +40,13 @@ const GoogleLoginBtn = ({ onLogin }) => {
             cursor='pointer'
             alignItems='center'
             justifyContent='center'
-            maxW='sm'
+            w='xs'
             p='3'
             borderWidth='2px'
             rounded='md'
-            mt='4'
           >
-            <Icon as={FcGoogle} mr={4} w={10} h={10} />
-            <Heading size='md'>Connect to Google</Heading>
+            <Icon as={FcGoogle} mr={4} w={6} h={6} />
+            <Heading size='sm'>Connect to Google</Heading>
           </Flex>
         )}
       />

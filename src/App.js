@@ -20,6 +20,10 @@ import FormsList from "./Components/FormsList";
 
 // Wisteria Purple: #8e44ad // rgba(142,68,173)
 
+// Form IDs for testing:
+// 13GkiY6JRDyLRUV1seSOKQVzavfh7rh-9-ro81tl--zs
+// 1bJJfgk-jKLS9tNQnxg0wnjcutBmtt7whunBjLXkw200
+
 let commentIndexes = [5, 10, 14, 17, 22, 26];
 let valueIndexes = [
   2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 15, 16, 18, 19, 20, 21, 23, 24, 25,
@@ -148,6 +152,7 @@ export default function App() {
     setForms([...forms, newForm]);
     setStorageNeedsUpdating(true);
     fetchDataFromSheet(newForm);
+    setActiveForm(newForm);
   };
 
   const fetchDataFromSheet = (form) => {
@@ -207,8 +212,8 @@ export default function App() {
       alignItems='center'
       w='full'
       maxW='5xl'
-      px='4'
-      py='16'
+      px='2'
+      py='4'
       mx='auto'
     >
       <Flex
@@ -219,15 +224,19 @@ export default function App() {
         maxW='4xl'
         mx='auto'
       >
-        <GetStartedContent />
+        <GetStartedContent
+          user={user}
+          onLogin={login}
+          onLogout={logout}
+          onAddSheet={handleAddSheet}
+        />
 
-        <Flex direction='column' w='full' maxW='2xl'>
+        <Flex direction='column' w='full' maxW='2xl' mt='16'>
           <Heading size='lg' display='flex' alignItems='center' my='4'>
-            {" "}
-            <Image src={formToSheetsBtnImage} /> My Surveys
+            My Surveys
           </Heading>
-
-          {!user && <GoogleLoginBtn onLogin={login} />}
+          {!user && <Text>Connect to Google to see results</Text>}
+          {forms.length === 0 && user && <Text>No surveys added yet</Text>}
 
           {user && (
             <FormsList
@@ -236,9 +245,6 @@ export default function App() {
               onSelect={selectForm}
             />
           )}
-          {user && <AddSheetForm handleAddSheet={handleAddSheet} />}
-
-          {user && <LogoutBtn onLogout={logout} />}
         </Flex>
       </Flex>
       {formData && (

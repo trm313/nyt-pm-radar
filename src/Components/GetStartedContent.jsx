@@ -9,9 +9,13 @@ import {
   Button,
   Image,
   Icon,
+  Box,
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
+import { FcGoogle, FcCheckmark } from "react-icons/fc";
 
+import AddSheetForm from "./AddSheetForm";
+import GoogleLoginBtn from "./GoogleLoginBtn";
+import LogoutBtn from "./LogoutBtn";
 import pmTypesImage from "../Assets/pm_types_charts.png";
 import formToSheetsBtnImage from "../Assets/formToSheetsBtn.png";
 
@@ -22,10 +26,12 @@ const Section = ({ children, headingText }) => (
   </Flex>
 );
 
-const GetStartedContent = () => {
+const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
   return (
-    <Flex direction='column' maxWidth='2xl'>
-      <Section headingText='What is this?'>
+    <Flex direction='column' w='full'>
+      <Heading>Find Your Product Shape</Heading>
+      <Heading size='sm'>Strategist? Innovator?</Heading>
+      <Flex direction='column'>
         <Text fontSize='xs' my='4'>
           Inspired by:{" "}
           <Link
@@ -38,49 +44,68 @@ const GetStartedContent = () => {
             Your Team
           </Link>
         </Text>
-
-        <Text>
-          Use your colleagues to help you find your true shape. Make a copy of
-          this survey template and send it to your colleagues, with anonymous
-          responses, in a "360-review" style.
-        </Text>
-        <Flex py='8'>
-          <Image src={pmTypesImage} />
+      </Flex>
+      <Flex
+        maxW='2xl'
+        w={{ base: "full", lg: "2xl" }}
+        direction='column'
+        shadow='lg'
+        p='8'
+        borderLeft='8px'
+        borderLeftColor='#8e44ad'
+      >
+        <Flex direction='column' mb='6'>
+          <Heading size='sm' py='2'>
+            1. Create your survey form
+          </Heading>
+          <Text mb='2'>
+            For this web app to work, it needs to be built from our template
+          </Text>
+          <LinkBox w='xs' p='3' borderWidth='2px' rounded='md'>
+            <Heading size='sm'>
+              <LinkOverlay
+                href='https://docs.google.com/forms/d/1LLYHe1tjoGCZRefSM19ZW43HrQHAxH6HUXQqRjiGUjc/copy'
+                isExternal
+              >
+                <Flex justify='center' alignItems='center'>
+                  <Icon as={FcGoogle} mr={4} w={6} h={6} /> Copy the template
+                </Flex>
+              </LinkOverlay>
+            </Heading>
+          </LinkBox>
+        </Flex>
+        <Flex direction='column' mb='6'>
+          <Heading size='sm' py='2'>
+            2. Connect your Form to a Sheet
+          </Heading>
+          <Text display='flex' alignItems='center'>
+            {"Edit Google Form > Responses >"}
+            <Image src={formToSheetsBtnImage} />
+          </Text>
         </Flex>
 
-        <Text>
-          This web app will let you connect to the results, average them, and
-          visualize a radar chart with your shape.
-        </Text>
+        <Flex direction='column' mb='6'>
+          {user ? (
+            <Heading size='sm' py='2' mb='2'>
+              3. Connected to Google <Icon as={FcCheckmark} />
+            </Heading>
+          ) : (
+            <Heading size='sm' py='2' mb='2'>
+              3. Connect your Google Account
+            </Heading>
+          )}
+          {!user && <GoogleLoginBtn onLogin={onLogin} />}
+          {user && <LogoutBtn onLogout={onLogout} />}
+        </Flex>
 
-        <LinkBox
-          as='article'
-          maxW='sm'
-          p='3'
-          borderWidth='2px'
-          rounded='md'
-          mt='8'
-        >
-          <Heading size='md'>
-            <LinkOverlay
-              href='https://docs.google.com/forms/d/1LLYHe1tjoGCZRefSM19ZW43HrQHAxH6HUXQqRjiGUjc/copy'
-              isExternal
-            >
-              <Flex justify='center' alignItems='center'>
-                <Icon as={FcGoogle} mr={4} w={10} h={10} /> Copy the template
-              </Flex>
-            </LinkOverlay>
+        <Flex direction='column' mb='6'>
+          <Heading size='sm' py='2'>
+            3. Add Google Sheet by ID
           </Heading>
-        </LinkBox>
-      </Section>
-      <Section headingText='How to see my results'>
-        <Text mt='4' display='flex' alignItems='center'>
-          In your Google Form, on the "Responses" tab, click{" "}
-          <Image src={formToSheetsBtnImage} />
-        </Text>
-        <Text mt='4'>Connect your Google account</Text>
-        <Text mt='4'>Paste the ID of the Google Sheet here</Text>
-      </Section>
+          <Text mb='2'>Paste the ID of the Google Sheet here</Text>
+          <AddSheetForm handleAddSheet={onAddSheet} />
+        </Flex>
+      </Flex>
     </Flex>
   );
 };

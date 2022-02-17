@@ -1,11 +1,11 @@
 import React from "react";
 import { GoogleLogout } from "react-google-login";
 import { Flex, Heading, Text, Icon } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
+import { FcGoogle, FcCancel } from "react-icons/fc";
 
 const LogoutBtn = ({ onLogout }) => {
   return (
-    <Flex mt='4'>
+    <Flex>
       <GoogleLogout
         clientId='12032474523-j8qabilh90gi615h4luvhc608aq4ar8n.apps.googleusercontent.com'
         buttonText='Disconnect from Google'
@@ -17,15 +17,13 @@ const LogoutBtn = ({ onLogout }) => {
             cursor='pointer'
             alignItems='center'
             justifyContent='center'
-            maxW='sm'
-            py='2'
-            px='4'
+            w='xs'
+            p='3'
             borderWidth='1px'
             rounded='md'
-            mt='4'
           >
-            <Icon as={FcGoogle} mr={4} w={4} h={4} />
-            <Text fontSize='sm'>Disconnect from Google</Text>
+            <Icon as={FcCancel} mr={4} w={6} h={6} />
+            <Heading size='sm'>Disconnect from Google</Heading>
           </Flex>
         )}
       />
