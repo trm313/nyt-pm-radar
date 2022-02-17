@@ -191,8 +191,9 @@ const RadarChart = ({
             />
           ))}
         </Flex>
-
-        <Radar data={data} options={options} />
+        <Flex w='full' maxW='2xl'>
+          <Radar data={data} options={options} />
+        </Flex>
       </Flex>
     </Flex>
   );
