@@ -32,7 +32,7 @@ const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
       <Heading>Find Your Product Shape</Heading>
       <Heading size='sm'>Strategist? Innovator?</Heading>
       <Flex direction='column'>
-        <Text fontSize='xs' my='4'>
+        <Text fontSize='xs' mt='4' mb='2'>
           Inspired by:{" "}
           <Link
             href='https://www.ravi-mehta.com/product-manager-roles/'
@@ -43,6 +43,18 @@ const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
             What’s Your Shape? A Product Manager’s Guide to Growing Yourself and
             Your Team
           </Link>
+        </Text>
+        <Text fontSize='xs' mb='4'>
+          Adapted for:{" "}
+          <Link
+            href='https://sites.google.com/nytimes.com/theproductportal/hiring-career'
+            isExternal
+            color='blue.500'
+            mx='2'
+          >
+            The New York Times Product Management Career Development Path
+          </Link>{" "}
+          (Internal Link)
         </Text>
       </Flex>
       <Flex
