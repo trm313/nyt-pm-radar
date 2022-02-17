@@ -19,7 +19,7 @@ const LogoutBtn = ({ onLogout }) => {
             justifyContent='center'
             w='xs'
             p='3'
-            borderWidth='1px'
+            borderWidth='2px'
             rounded='md'
           >
             <Icon as={FcCancel} mr={4} w={6} h={6} />
