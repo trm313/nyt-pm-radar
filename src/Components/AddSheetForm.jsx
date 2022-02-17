@@ -40,17 +40,28 @@ const AddSheetForm = ({ handleAddSheet }) => {
   };
 
   return (
-    <FormControl w='full' mt='2' isInvalid={errorMessage}>
+    <FormControl w='full' mt='4' isInvalid={errorMessage}>
       <Flex>
         <Input
           id='sheetId'
           placeholder='Google Sheet ID'
           value={formIdInput}
+          variant='flushed'
+          focusBorderColor='#8e44ad'
           onChange={(e) => setFormIdInput(e.target.value)}
-          border='2px'
-          borderColor='gray.200'
+          onFocus={() => setErrorMessage("")}
         />
-        <Button onClick={() => onSubmit()} type='submit'>
+        <Button
+          onClick={() => onSubmit()}
+          type='submit'
+          rounded='0'
+          backgroundColor='#8e44ad'
+          color='white'
+          shadow='0'
+          _hover={{
+            opacity: 0.7,
+          }}
+        >
           ADD
         </Button>
       </Flex>

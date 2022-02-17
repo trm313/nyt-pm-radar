@@ -23,14 +23,15 @@ const SegmentOption = ({ segment, isActive, onSelect, proficiency }) => (
     <Text fontSize='xs'>{segment.label}</Text>
     <Text
       fontSize='xs'
-      py='2'
-      px='2'
+      py='3'
+      px='3'
       backgroundColor='gray.100'
       opacity='1'
-      rounded='md'
+      // rounded='md'
       fontWeight='bold'
-      border='1px'
-      borderColor='gray.300'
+      shadow='sm'
+      // border='1px'
+      // borderColor='gray.300'
     >
       {proficiency.pct}%
     </Text>
