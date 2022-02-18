@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FcGoogle, FcCheckmark } from "react-icons/fc";
 
-import AddSheetForm from "./AddSheetForm";
+import AddFormControl from "./AddFormControl";
 import GoogleLoginBtn from "./GoogleLoginBtn";
 import LogoutBtn from "./LogoutBtn";
 import pmTypesImage from "../Assets/pm_types_charts.png";
@@ -26,7 +26,7 @@ const Section = ({ children, headingText }) => (
   </Flex>
 );
 
-const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
+const GetStartedContent = ({ user, onLogin, onLogout, onAddForm }) => {
   return (
     <Flex direction='column' w='full'>
       <Heading>Find Your Product Shape</Heading>
@@ -106,7 +106,7 @@ const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
             3. Add Google Form by ID
           </Heading>
           <Text mb='2'>Paste the ID of the Google Form here</Text>
-          <AddSheetForm handleAddSheet={onAddSheet} />
+          <AddFormControl user={user} handleAddForm={onAddForm} />
         </Flex>
       </Flex>
     </Flex>

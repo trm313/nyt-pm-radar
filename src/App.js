@@ -10,8 +10,6 @@ import FormsList from "./Components/FormsList";
 
 // Util Functions
 import {
-  compileSurveyResponses,
-  compileAveragesFromAllResponses,
   fetchAndCompileResponsesForForm,
   compileRadarDataSeries,
 } from "./Utils/functions";
@@ -22,8 +20,8 @@ import { demoSurveyResponses, demoSurveyForm } from "./Utils/data";
 // Wisteria Purple: #8e44ad // rgba(142,68,173)
 
 // Form IDs for testing:
-// 13GkiY6JRDyLRUV1seSOKQVzavfh7rh-9-ro81tl--zs
-// 1bJJfgk-jKLS9tNQnxg0wnjcutBmtt7whunBjLXkw200
+// 1Yus5UpgfAi641Fl9FT-esu5ljGJD5f4h49Qf-WU9rK8
+// 1TdAudL-djiD9W2hWjaO-FAp3N_hxiQ0L5f85R4sdVC4
 
 // Increment after a breaking change made to the LocalStorage.forms key data structure
 // !! Currently will discard any stored objects that don't match this version
@@ -57,7 +55,7 @@ export default function App() {
       storedForms = storedForms.filter((f) => f.v === FORM_STORAGE_VERSION);
       setForms(storedForms);
     } else {
-      // If data doesn't exist, initialize it here (eg. first time user)
+      // If localStorage key doesn't exist, initialize it here (eg. first time user)
       localStorage.setItem(key, JSON.stringify([]));
     }
   };
@@ -72,10 +70,10 @@ export default function App() {
     setActiveForm(form);
   };
 
-  const handleAddSheet = (newForm) => {
+  const handleAddForm = (newForm) => {
     setForms([...forms, { ...newForm, v: FORM_STORAGE_VERSION }]);
     setStorageNeedsUpdating(true);
-    fetchDataFromSheet(newForm);
+    loadFormResponses(newForm.id);
     setActiveForm(newForm);
   };
 
@@ -86,23 +84,6 @@ export default function App() {
       data,
     });
   };
-
-  // const fetchDataFromSheet = (form) => {
-  //   axios
-  //     .get(
-  //       `https://sheets.googleapis.com/v4/spreadsheets/${form.id}/values/A:AZ`
-  //     )
-  //     .then((res) => {
-  //       let structuredFormResponses = compileSurveyResponses(res.data);
-  //       setFormData({
-  //         id: form.id,
-  //         data: structuredFormResponses,
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   // Effects
   useEffect(() => {
@@ -127,7 +108,6 @@ export default function App() {
 
   useEffect(() => {
     if (activeForm) {
-      // fetchDataFromSheet(activeForm);
       loadFormResponses(activeForm.id);
     }
   }, [activeForm]);
@@ -161,7 +141,7 @@ export default function App() {
           user={user}
           onLogin={login}
           onLogout={logout}
-          onAddSheet={handleAddSheet}
+          onAddForm={handleAddForm}
         />
 
         <Flex direction='column' w='full' maxW='2xl' mt='16'>
@@ -199,7 +179,6 @@ export default function App() {
             formData.data.questions,
             formData.data.responses
           )}
-          // values={[0, 0, 0]}
           size='auto'
         />
       )}

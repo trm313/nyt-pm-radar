@@ -11,7 +11,7 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 
-const AddSheetForm = ({ handleAddSheet }) => {
+const AddFormControl = ({ user, handleAddForm }) => {
   const [formIdInput, setFormIdInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -26,16 +26,16 @@ const AddSheetForm = ({ handleAddSheet }) => {
         };
         setFormIdInput("");
         setErrorMessage("");
-        handleAddSheet(newForm);
+        handleAddForm(newForm);
       })
       .catch((err) => {
         console.log(err);
-        setErrorMessage("Error adding Google Sheet, please re-check sheet ID");
+        setErrorMessage("Error adding Google Form, please re-check sheet ID");
       });
   };
 
   return (
-    <FormControl w='full' mt='4' isInvalid={errorMessage}>
+    <FormControl w='full' mt='4' isInvalid={errorMessage} isDisabled={!user}>
       <Flex>
         <Input
           id='sheetId'
@@ -47,6 +47,7 @@ const AddSheetForm = ({ handleAddSheet }) => {
           onFocus={() => setErrorMessage("")}
         />
         <Button
+          isDisabled={!user}
           onClick={() => onSubmit()}
           type='submit'
           rounded='0'
@@ -70,4 +71,4 @@ const AddSheetForm = ({ handleAddSheet }) => {
   );
 };
 
-export default AddSheetForm;
+export default AddFormControl;
