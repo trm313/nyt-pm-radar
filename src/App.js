@@ -12,6 +12,8 @@ import FormsList from "./Components/FormsList";
 import {
   compileSurveyResponses,
   compileAveragesFromAllResponses,
+  fetchAndCompileResponsesForForm,
+  compileRadarDataSeries,
 } from "./Utils/functions";
 
 // Util Data
@@ -22,6 +24,11 @@ import { demoSurveyResponses, demoSurveyForm } from "./Utils/data";
 // Form IDs for testing:
 // 13GkiY6JRDyLRUV1seSOKQVzavfh7rh-9-ro81tl--zs
 // 1bJJfgk-jKLS9tNQnxg0wnjcutBmtt7whunBjLXkw200
+
+// Increment after a breaking change made to the LocalStorage.forms key data structure
+// !! Currently will discard any stored objects that don't match this version
+// In the future, can use this to handle migrations where possible
+const FORM_STORAGE_VERSION = 2;
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -47,6 +54,7 @@ export default function App() {
     const key = "forms";
     if (localStorage.getItem(key)) {
       let storedForms = JSON.parse(localStorage.getItem(key));
+      storedForms = storedForms.filter((f) => f.v === FORM_STORAGE_VERSION);
       setForms(storedForms);
     } else {
       // If data doesn't exist, initialize it here (eg. first time user)
@@ -65,29 +73,36 @@ export default function App() {
   };
 
   const handleAddSheet = (newForm) => {
-    setForms([...forms, newForm]);
+    setForms([...forms, { ...newForm, v: FORM_STORAGE_VERSION }]);
     setStorageNeedsUpdating(true);
     fetchDataFromSheet(newForm);
     setActiveForm(newForm);
   };
 
-  const fetchDataFromSheet = (form) => {
-    axios
-      .get(
-        `https://sheets.googleapis.com/v4/spreadsheets/${form.id}/values/A:AZ`
-      )
-      .then((res) => {
-        let structuredFormResponses = compileSurveyResponses(res.data);
-        console.log("Data for demo:", structuredFormResponses);
-        setFormData({
-          id: form.id,
-          data: structuredFormResponses,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const loadFormResponses = async (id) => {
+    let data = await fetchAndCompileResponsesForForm(id);
+    setFormData({
+      id,
+      data,
+    });
   };
+
+  // const fetchDataFromSheet = (form) => {
+  //   axios
+  //     .get(
+  //       `https://sheets.googleapis.com/v4/spreadsheets/${form.id}/values/A:AZ`
+  //     )
+  //     .then((res) => {
+  //       let structuredFormResponses = compileSurveyResponses(res.data);
+  //       setFormData({
+  //         id: form.id,
+  //         data: structuredFormResponses,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   // Effects
   useEffect(() => {
@@ -112,7 +127,8 @@ export default function App() {
 
   useEffect(() => {
     if (activeForm) {
-      fetchDataFromSheet(activeForm);
+      // fetchDataFromSheet(activeForm);
+      loadFormResponses(activeForm.id);
     }
   }, [activeForm]);
 
@@ -168,7 +184,8 @@ export default function App() {
         <RadarChart
           form={demoSurveyForm}
           labels={demoSurveyResponses.data.labels}
-          values={compileAveragesFromAllResponses(
+          values={compileRadarDataSeries(
+            demoSurveyResponses.data.questions,
             demoSurveyResponses.data.responses
           )}
           size='auto'
@@ -178,7 +195,11 @@ export default function App() {
         <RadarChart
           form={activeForm}
           labels={formData.data.labels}
-          values={compileAveragesFromAllResponses(formData.data.responses)}
+          values={compileRadarDataSeries(
+            formData.data.questions,
+            formData.data.responses
+          )}
+          // values={[0, 0, 0]}
           size='auto'
         />
       )}

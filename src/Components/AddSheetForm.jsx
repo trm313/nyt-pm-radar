@@ -11,11 +11,6 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 
-// TODO: Validate Sheet ID / access before adding
-// Show a check if it's good, or an error signal if not
-
-// TODO: Validate other inputs like Name
-
 const AddSheetForm = ({ handleAddSheet }) => {
   const [formIdInput, setFormIdInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -23,11 +18,11 @@ const AddSheetForm = ({ handleAddSheet }) => {
   const onSubmit = () => {
     let id = formIdInput;
     axios
-      .get(`https://sheets.googleapis.com/v4/spreadsheets/${id}`)
+      .get(`https://forms.googleapis.com/v1beta/forms/${id}`)
       .then((res) => {
         let newForm = {
           id,
-          name: res.data.properties.title,
+          name: res.data.info.documentTitle,
         };
         setFormIdInput("");
         setErrorMessage("");
@@ -44,7 +39,7 @@ const AddSheetForm = ({ handleAddSheet }) => {
       <Flex>
         <Input
           id='sheetId'
-          placeholder='Google Sheet ID'
+          placeholder='Google Form ID'
           value={formIdInput}
           variant='flushed'
           focusBorderColor='#8e44ad'
@@ -67,7 +62,7 @@ const AddSheetForm = ({ handleAddSheet }) => {
       </Flex>
 
       <FormHelperText>
-        This part: https://docs.google.com/spreadsheets/d/
+        This part: https://docs.google.com/forms/d/
         <strong>SHEET_ID</strong>/edit
       </FormHelperText>
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
