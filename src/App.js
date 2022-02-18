@@ -164,6 +164,7 @@ export default function App() {
             demoSurveyResponses.data.questions,
             demoSurveyResponses.data.responses
           )}
+          responseCount={demoSurveyResponses.data.responses.length}
           size='auto'
         />
       )}
@@ -175,6 +176,7 @@ export default function App() {
             formData.data.questions,
             formData.data.responses
           )}
+          responseCount={formData.data.responses.length}
           size='auto'
         />
       )}

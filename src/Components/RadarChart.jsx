@@ -133,6 +133,7 @@ const RadarChart = ({
   values,
   minimal = false,
   size = sizes.auto,
+  responseCount,
 }) => {
   const [segments, setSegments] = useState([segmentDatasets[0]]);
 
@@ -174,9 +175,25 @@ const RadarChart = ({
       mt='12'
       position='relative'
     >
-      <Heading fontSize='lg' fontWeight='bold' mb='8'>
-        {form.name}
-      </Heading>
+      <Flex alignItems='center' mb='8'>
+        <Heading fontSize='lg' fontWeight='bold'>
+          {form.name}
+        </Heading>
+        <Flex
+          bg='gray.200'
+          py='1'
+          px='2'
+          ml='4'
+          alignItems='center'
+          fontSize='xs'
+        >
+          <Text fontWeight='bold' mr='2'>
+            {responseCount}
+          </Text>
+          <Text>Response{responseCount > 1 && "s"}</Text>
+        </Flex>
+      </Flex>
+
       <Flex w='full' direction='column' justify='center' alignItems='center'>
         <Flex justify='center' wrap='wrap'>
           {segmentDatasets.map((s) => (
