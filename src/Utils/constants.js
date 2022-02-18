@@ -21,8 +21,3 @@ export const GOOGLE_CLIENT_ID =
   "12032474523-j8qabilh90gi615h4luvhc608aq4ar8n.apps.googleusercontent.com";
 export const GOOGLE_SCOPE =
   "profile email https://www.googleapis.com/auth/forms.body.readonly";
-
-/**
- * STYLING
- */
-// Wisteria Purple: #8e44ad // rgba(142,68,173)

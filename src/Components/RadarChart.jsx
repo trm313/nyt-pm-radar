@@ -180,7 +180,7 @@ const RadarChart = ({
           {form.name}
         </Heading>
         <Flex
-          bg='gray.200'
+          bg='brand.200'
           py='1'
           px='2'
           ml='4'
@@ -190,7 +190,7 @@ const RadarChart = ({
           <Text fontWeight='bold' mr='2'>
             {responseCount}
           </Text>
-          <Text>Response{responseCount > 1 && "s"}</Text>
+          <Text>response{responseCount !== 1 && "s"}</Text>
         </Flex>
       </Flex>
 

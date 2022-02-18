@@ -42,7 +42,7 @@ const AddFormControl = ({ user, handleAddForm }) => {
           placeholder='Google Form ID'
           value={formIdInput}
           variant='flushed'
-          focusBorderColor='#8e44ad'
+          focusBorderColor='brand.600'
           onChange={(e) => setFormIdInput(e.target.value)}
           onFocus={() => setErrorMessage("")}
         />
@@ -51,11 +51,11 @@ const AddFormControl = ({ user, handleAddForm }) => {
           onClick={() => onSubmit()}
           type='submit'
           rounded='0'
-          backgroundColor='#8e44ad'
+          backgroundColor='brand.600'
           color='white'
           shadow='0'
           _hover={{
-            opacity: 0.7,
+            backgroundColor: "brand.400",
           }}
         >
           ADD

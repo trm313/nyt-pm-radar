@@ -64,7 +64,7 @@ const GetStartedContent = ({ user, onLogin, onLogout, onAddForm }) => {
         shadow='lg'
         p='8'
         borderLeft='8px'
-        borderLeftColor='#8e44ad'
+        borderLeftColor='brand.600'
       >
         <Flex direction='column' mb='6'>
           <Heading size='sm' py='2'>

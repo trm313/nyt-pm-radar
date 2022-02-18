@@ -12,7 +12,11 @@ const theme = extendTheme({
     heading: "Raleway",
     body: "Helvetica Neue, Helvetica, Raleway",
   },
+  colors: {
+    brand: { 200: "#ddc7e6", 400: "#bb8fce", 600: "#8e44ad" },
+  },
 });
+// Wisteria Purple: #8e44ad || rgba(142,68,173)
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>

@@ -17,7 +17,9 @@ const FormsList = ({ forms, activeForm, onSelect }) => {
           mt='2'
           borderColor='gray.200'
           borderLeftWidth='8px'
-          borderLeftColor={form.id === activeForm?.id ? "#8e44ad" : "gray.300"}
+          borderLeftColor={
+            form.id === activeForm?.id ? "brand.600" : "gray.300"
+          }
           shadow={form.id === activeForm?.id ? "md" : "sm"}
         >
           <Heading size='md'>{form.name}</Heading>
