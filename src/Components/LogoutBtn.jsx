@@ -3,11 +3,13 @@ import { GoogleLogout } from "react-google-login";
 import { Flex, Heading, Text, Icon } from "@chakra-ui/react";
 import { FcGoogle, FcCancel } from "react-icons/fc";
 
+import { GOOGLE_CLIENT_ID } from "../Utils/constants";
+
 const LogoutBtn = ({ onLogout }) => {
   return (
     <Flex>
       <GoogleLogout
-        clientId='12032474523-j8qabilh90gi615h4luvhc608aq4ar8n.apps.googleusercontent.com'
+        clientId={GOOGLE_CLIENT_ID}
         buttonText='Disconnect from Google'
         onLogoutSuccess={onLogout}
         render={(renderProps) => (

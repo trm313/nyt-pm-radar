@@ -18,6 +18,5 @@ Web application: (Product Shape)[https://nyt-pm-review.netlify.app/]
 
 1. Create a Google Form based on the linked template
 2. Take it yourself, and/or send it to peers
-3. Connect your Form to a Sheet (Form > Edit > Responses > "Connect to Google Sheet")
-4. Connect your Google Account to grant this tool read-access to Google Sheets
-5. Paste the Google Sheet ID into the form
+3. Connect your Google Account to grant this tool read-access to Google Sheets
+4. Paste the Google Form ID into the form to visualize results!

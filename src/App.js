@@ -8,6 +8,9 @@ import RadarChart from "./Components/RadarChart";
 import GetStartedContent from "./Components/GetStartedContent";
 import FormsList from "./Components/FormsList";
 
+// Constants
+import { FORM_STORAGE_VERSION } from "./Utils/constants";
+
 // Util Functions
 import {
   fetchAndCompileResponsesForForm,
@@ -17,16 +20,9 @@ import {
 // Util Data
 import { demoSurveyResponses, demoSurveyForm } from "./Utils/data";
 
-// Wisteria Purple: #8e44ad // rgba(142,68,173)
-
 // Form IDs for testing:
 // 1Yus5UpgfAi641Fl9FT-esu5ljGJD5f4h49Qf-WU9rK8
 // 1TdAudL-djiD9W2hWjaO-FAp3N_hxiQ0L5f85R4sdVC4
-
-// Increment after a breaking change made to the LocalStorage.forms key data structure
-// !! Currently will discard any stored objects that don't match this version
-// In the future, can use this to handle migrations where possible
-const FORM_STORAGE_VERSION = 2;
 
 export default function App() {
   const [user, setUser] = useState(null);

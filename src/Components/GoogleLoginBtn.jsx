@@ -4,6 +4,8 @@ import { GoogleLogin } from "react-google-login";
 import { Flex, Heading, Text, Icon } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 
+import { GOOGLE_CLIENT_ID, GOOGLE_SCOPE } from "../Utils/constants";
+
 /*
 Resources:
 https://github.com/anthonyjgrove/react-google-login
@@ -25,13 +27,13 @@ const GoogleLoginBtn = ({ onLogin }) => {
   return (
     <>
       <GoogleLogin
-        clientId='12032474523-j8qabilh90gi615h4luvhc608aq4ar8n.apps.googleusercontent.com'
+        clientId={GOOGLE_CLIENT_ID}
         buttonText='Connect to Google'
         onSuccess={onLogin}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
-        scope='profile email https://www.googleapis.com/auth/forms.body.readonly'
+        scope={GOOGLE_SCOPE}
         render={(renderProps) => (
           // <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
           <Flex
