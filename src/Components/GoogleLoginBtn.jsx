@@ -31,7 +31,7 @@ const GoogleLoginBtn = ({ onLogin }) => {
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
-        scope='profile email https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/forms.body.readonly'
+        scope='profile email https://www.googleapis.com/auth/forms.body.readonly'
         render={(renderProps) => (
           // <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
           <Flex
