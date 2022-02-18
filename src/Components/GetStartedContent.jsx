@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FcGoogle, FcCheckmark } from "react-icons/fc";
 
-import AddSheetForm from "./AddSheetForm";
+import AddFormControl from "./AddFormControl";
 import GoogleLoginBtn from "./GoogleLoginBtn";
 import LogoutBtn from "./LogoutBtn";
 import pmTypesImage from "../Assets/pm_types_charts.png";
@@ -26,7 +26,7 @@ const Section = ({ children, headingText }) => (
   </Flex>
 );
 
-const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
+const GetStartedContent = ({ user, onLogin, onLogout, onAddForm }) => {
   return (
     <Flex direction='column' w='full'>
       <Heading>Find Your Product Shape</Heading>
@@ -86,24 +86,15 @@ const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
             </Heading>
           </LinkBox>
         </Flex>
-        <Flex direction='column' mb='6'>
-          <Heading size='sm' py='2'>
-            2. Connect your Form to a Sheet
-          </Heading>
-          <Text display='flex' alignItems='center'>
-            {"Edit Google Form > Responses >"}
-            <Image src={formToSheetsBtnImage} />
-          </Text>
-        </Flex>
 
         <Flex direction='column' mb='6'>
           {user ? (
             <Heading size='sm' py='2' mb='2'>
-              3. Connected to Google <Icon as={FcCheckmark} />
+              2. Connected to Google <Icon as={FcCheckmark} />
             </Heading>
           ) : (
             <Heading size='sm' py='2' mb='2'>
-              3. Connect your Google Account
+              2. Connect your Google Account
             </Heading>
           )}
           {!user && <GoogleLoginBtn onLogin={onLogin} />}
@@ -112,10 +103,10 @@ const GetStartedContent = ({ user, onLogin, onLogout, onAddSheet }) => {
 
         <Flex direction='column' mb='6'>
           <Heading size='sm' py='2'>
-            3. Add Google Sheet by ID
+            3. Add Google Form by ID
           </Heading>
-          <Text mb='2'>Paste the ID of the Google Sheet here</Text>
-          <AddSheetForm handleAddSheet={onAddSheet} />
+          <Text mb='2'>Paste the ID of the Google Form here</Text>
+          <AddFormControl user={user} handleAddForm={onAddForm} />
         </Flex>
       </Flex>
     </Flex>
