@@ -42,6 +42,7 @@ export default function App() {
     setUser(null);
     setFormData(null);
     setActiveForm(null);
+    setGetResponsesError(null);
   };
 
   // LocalStorage Interactions
