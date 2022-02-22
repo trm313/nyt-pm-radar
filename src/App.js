@@ -30,6 +30,7 @@ export default function App() {
   const [activeForm, setActiveForm] = useState(null);
   const [formData, setFormData] = useState(null);
   const [storageNeedsUpdating, setStorageNeedsUpdating] = useState(false);
+  const [getResponsesError, setGetResponsesError] = useState(null);
 
   // Authentication
   const login = (user) => {
@@ -74,11 +75,18 @@ export default function App() {
   };
 
   const loadFormResponses = async (id) => {
-    let data = await fetchAndCompileResponsesForForm(id);
-    setFormData({
-      id,
-      data,
-    });
+    try {
+      let data = await fetchAndCompileResponsesForForm(id);
+      setFormData({
+        id,
+        data,
+      });
+      setGetResponsesError(null);
+    } catch (error) {
+      setGetResponsesError(
+        "Something went wrong when trying to retrieve the responses for your survey"
+      );
+    }
   };
 
   // Effects
@@ -156,6 +164,22 @@ export default function App() {
           )}
         </Flex>
       </Flex>
+      {getResponsesError && (
+        <Flex
+          bgColor='red.100'
+          my='2'
+          p='3'
+          direction='column'
+          borderLeft='8px'
+          borderLeftColor='red.200'
+          textColor='gray.700'
+        >
+          <Text fontWeight='bold' mr='2' fontSize='sm'>
+            ERROR
+          </Text>
+          <Text>{getResponsesError}</Text>
+        </Flex>
+      )}
       {!formData && (
         <RadarChart
           form={demoSurveyForm}
