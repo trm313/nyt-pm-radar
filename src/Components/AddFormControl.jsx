@@ -64,7 +64,7 @@ const AddFormControl = ({ user, handleAddForm }) => {
 
       <FormHelperText>
         This part: https://docs.google.com/forms/d/
-        <strong>SHEET_ID</strong>/edit
+        <strong>FORM_ID</strong>/edit
       </FormHelperText>
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
