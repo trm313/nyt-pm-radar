@@ -74,7 +74,7 @@ const segmentDatasets = [
   {
     label: "Product Execution",
     data: [0, 0, 0, 3, 3, 3, 3],
-    indexes: [3, 4, 5],
+    indexes: [3, 4, 5, 6],
     backgroundColor: "rgba(46,204,113,.2)", // Emerald
     borderColor: "none",
     borderWidth: 0,
@@ -82,7 +82,7 @@ const segmentDatasets = [
   {
     label: "Leadership",
     data: [0, 0, 0, 0, 0, 0, 0, 3, 3, 3],
-    indexes: [6, 7, 8],
+    indexes: [7, 8, 9],
     backgroundColor: "rgba(52,152,219,.2)", // Blue
     borderColor: "none",
     borderWidth: 0,
@@ -90,7 +90,7 @@ const segmentDatasets = [
   {
     label: "Cross Functional",
     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3],
-    indexes: [9, 10],
+    indexes: [10, 11],
     backgroundColor: "rgba(155,89,182,.2)", // Amethyst
     borderColor: "none",
     borderWidth: 0,
@@ -98,7 +98,7 @@ const segmentDatasets = [
   {
     label: "Technical & Insights",
     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3],
-    indexes: [11, 12, 13, 14],
+    indexes: [12, 13, 14, 15],
     backgroundColor: "rgba(52,73,94,.2)", // Wet Asphalt
     borderColor: "none",
     borderWidth: 0,
@@ -106,7 +106,7 @@ const segmentDatasets = [
   {
     label: "People Mgmt",
     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3],
-    indexes: [15, 16, 17],
+    indexes: [16, 17, 18],
     backgroundColor: "rgba(243,156,18,.2)", // Orange
     borderColor: "none",
     borderWidth: 0,
@@ -120,6 +120,7 @@ const getSegmentTotals = (values, segment) => {
   for (let i = 0; i < indexes.length; i++) {
     sum += values[indexes[i]];
   }
+
   return {
     sum,
     total,
